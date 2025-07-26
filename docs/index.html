@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>100% docker - Full Remote - GPU Accelerated - Video Recording And Edition Environment</title>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2em;
+      background-color: #111;
+      color: #eee;
+    }
+    pre.mermaid {
+      background-color: #222;
+      border-radius: 10px;
+      padding: 1em;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧭 Architecture GPU Video Stack</h1>
+  <pre class="mermaid">
+flowchart LR
+    subgraph MacBook["MacBook Pro 13\" (2560×1600)"]
+        OBS[OBS Studio (Docker)]
+        CAM[Webcam Intégrée]
+        DISP1[Écran Principal]
+        DISP2[Écran Secondaire (Asus 15.4\" 1080p)]
+        OBS -->|Capture| DISP1
+        OBS -->|Capture| DISP2
+        OBS -->|FaceCam| CAM
+        OBS --> NAS1[NAS /Volumes/video (SMB)]
+    end
+
+    subgraph NAS["Synology NAS"]
+        NAS1
+        NAS2[/volume1/video/]
+    end
+
+    subgraph HTPC["HTPC Dev (GPU)"]
+        XPRA[Xpra + Xorg (Docker)]
+        MONTAGE[Kdenlive / Shotcut / ffmpeg (Docker)]
+        NAS2 -->|Mount NFS| XPRA
+        XPRA --> MONTAGE
+        MONTAGE -->|Output MP4| NAS2
+    end
+
+    subgraph Browser["MacBook (client)"]
+        HTML5["🖥️ Xpra HTML5 UI"]
+        HTML5 --> XPRA
+    end
+  </pre>
+</body>
+</html>

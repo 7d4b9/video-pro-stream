@@ -1,0 +1,46 @@
+
+
+{
+  "name": "vegito-profile",
+  "settings": {
+    "Video": {
+      "BaseCanvasResolution": "4480x1600",
+      "OutputResolution": "2240x800",
+      "FPS": 30
+    },
+    "Output": {
+      "Mode": "Simple",
+      "RecordingPath": "$HOME/Videos/vegito-recordings",
+      "RecordingFormat": "mkv"
+    },
+    "Audio": {
+      "DesktopAudioDevice1": "default",
+      "MicAudioDevice": "default"
+    }
+  },
+  "scenes": [
+    {
+      "name": "DualScreenCam",
+      "sources": [
+        {
+          "type": "screen_capture",
+          "display": 0,
+          "position": [0, 0],
+          "size": [2560, 1600]
+        },
+        {
+          "type": "screen_capture",
+          "display": 1,
+          "position": [2560, 0],
+          "size": [1920, 1080]
+        },
+        {
+          "type": "video_capture_device",
+          "device": "FaceTime HD Camera",
+          "position": [4100, 1200],
+          "size": [640, 480]
+        }
+      ]
+    }
+  ]
+}

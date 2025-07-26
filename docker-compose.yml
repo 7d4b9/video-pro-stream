@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  obs:
+    build: .
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix           # Pour affichage GUI sur XQuartz
+      - /Volumes/NAS/vegito-recordings:/output  # Volume de destination
+      - ./obs-config/:/home/streamer/.config/obs-studio
+    devices:
+      - /dev/video0:/dev/video0                 # webcam
+    privileged: true                            # si v4l2loopback utilisé
